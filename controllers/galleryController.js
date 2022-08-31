@@ -16,6 +16,7 @@ class GalleryController {
   }
 
   static findAll(req, res) {
+    console.log('-------')
     Gallery.find({})
       .then(pics => {
         res.status(200).json(pics)
@@ -27,6 +28,7 @@ class GalleryController {
 
   static findType(req, res) {
     const type = req.params.type
+    console.log('-------', type)
 
     Gallery
       .find(type)
