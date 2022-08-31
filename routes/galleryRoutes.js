@@ -1,8 +1,17 @@
 const router = require('express').Router()
+const multer = require('multer');
 const GalleryController = require('../controllers/galleryController')
-const { authorization } = require('../middlewares')
+const { authentication } = require('../middlewares')
+const { getStorage } = require('../services/cloudinary');
 
-router.post('/upload', GalleryController.upload)
+const maxSize = 2*1024*1024; //2 MB
+
+const storage = getStorage();
+const upload = multer({ 
+    storage,
+    limits: { fileSize: maxSize }
+});
+router.post('/upload', authentication, upload.array('images'), GalleryController.upload)
 
 router.get('/', GalleryController.findAll)
 router.get('/:type', GalleryController.findType)
