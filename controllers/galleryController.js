@@ -1,13 +1,14 @@
 const Gallery = require('../models/gallery')
 
 class GalleryController {
-  static upload(req, res) {        
-    const {name, type} = req.body
+  static upload(req, res) {     
+    const {name, category, city} = req.body
 
     Gallery.create({
       name, 
       url: req.file.path, 
-      type
+      category,
+      city
     })
     .then(user=> {
       res.status(201).json(user)
@@ -27,10 +28,11 @@ class GalleryController {
       })
   }
 
-  static findType(req, res) {
-    const type = req.params.type
+  static findCategory(req, res) {
+    const category = req.params.category
+    
     Gallery
-      .find(type)
+      .find({category})
       .then(pics => {
         res.status(200).json(pics)
       })

@@ -11,9 +11,9 @@ const upload = multer({
     storage,
     limits: { fileSize: maxSize }
 });
-router.post('/upload', authentication, upload.array('images'), GalleryController.upload)
+router.post('/upload', authentication, upload.single('images'), GalleryController.upload)
 
 router.get('/', GalleryController.findAll)
-router.get('/:type', GalleryController.findType)
+router.get('/:category', GalleryController.findCategory)
 
 module.exports = router

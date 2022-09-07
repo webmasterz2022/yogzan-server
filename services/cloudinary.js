@@ -13,7 +13,7 @@ cloudinary.getStorage = () => {
   return new CloudinaryStorage({
     cloudinary,
     params: {
-      folder: `/Gallery/${process.env.ENV}`,
+      folder: `/Gallery/${process.env.NODE_ENV}`,
       allowedFormats: ["jpeg", "jpg", "png"],
     },
   });

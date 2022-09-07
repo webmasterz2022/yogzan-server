@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-mongoose.connect(process.env.DB_PATH, {useNewUrlParser: true, useUnifiedTopology: true, serverApi: '1'}, (err) => {
+mongoose.connect(process.env.DB_PATH, {useNewUrlParser: true, useUnifiedTopology: true, serverApi: '1', dbName: process.env.NODE_ENV}, (err) => {
   if(err) console.log('mongoose connection failed', err);
   else console.log('mongoose connection success');
 });
