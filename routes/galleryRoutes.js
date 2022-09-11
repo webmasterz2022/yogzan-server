@@ -15,8 +15,8 @@ const upload = (type, fieldName) => multer({
 router.post('/upload', authentication, upload('Gallery', 'images'), GalleryController.upload)
 router.post('/upload-homepage', authentication, upload('Homepage', 'images'), GalleryController.uploadHomepage)
 
-router.get('/', GalleryController.findAll)
 router.get('/homepage', GalleryController.findHomepage)
+router.get('/', GalleryController.findAll)
 router.get('/category/:category', GalleryController.findCategory)
 
 module.exports = router
