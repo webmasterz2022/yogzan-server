@@ -11,7 +11,25 @@ class GalleryController {
       city,
       horizontal,
       vertical,
-      description
+      description,
+      isHomepage: false
+    })
+    .then(pic => {
+      res.status(201).json(pic)
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
+  }
+
+  static uploadHomepage(req, res) {     
+    const {name, horizontal, vertical} = req.body
+    Gallery.create({
+      name, 
+      url: req.file.path,
+      horizontal,
+      vertical,
+      isHomepage: true
     })
     .then(pic => {
       res.status(201).json(pic)
@@ -42,6 +60,17 @@ class GalleryController {
           totalPage: Math.ceil(totalData / perPage)
         }
         res.status(200).json({images: pics, meta})
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(400).json({ msg:err })
+      })
+  }
+
+  static findHomepage(req, res) {
+    Gallery.find({isHomepage: true})
+      .then(pics => {
+        res.status(200).json(pics)
       })
       .catch(err => {
         console.log(err)

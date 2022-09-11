@@ -8,12 +8,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-cloudinary.getStorage = () => {
+cloudinary.getStorage = (type) => {
 
   return new CloudinaryStorage({
     cloudinary,
     params: {
-      folder: `/Gallery/${process.env.NODE_ENV}`,
+      folder: `/${type}/${process.env.NODE_ENV}`,
       image_metadata: true,
       allowedFormats: ["jpeg", "jpg", "png"]
     },

@@ -6,14 +6,17 @@ const { getStorage } = require('../services/cloudinary');
 
 const maxSize = 2*1024*1024; //2 MB
 
-const storage = getStorage();
-const upload = multer({ 
-  storage,
+const storage = type => getStorage(type);
+const upload = (type, fieldName) => multer({ 
+  storage: storage(type),
   limits: { fileSize: maxSize }
-})
-router.post('/upload', authentication, upload.single('images'), GalleryController.upload)
+}).single(fieldName)
+
+router.post('/upload', authentication, upload('Gallery', 'images'), GalleryController.upload)
+router.post('/upload-homepage', authentication, upload('Homepage', 'images'), GalleryController.uploadHomepage)
 
 router.get('/', GalleryController.findAll)
+router.get('/homepage', GalleryController.findHomepage)
 router.get('/:category', GalleryController.findCategory)
 
 module.exports = router

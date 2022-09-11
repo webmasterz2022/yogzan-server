@@ -7,7 +7,8 @@ const gallerySchema = mongoose.Schema({
     city: String,
     horizontal: Boolean,
     vertical: Boolean,
-    description: String
+    description: String,
+    isHomepage: Boolean
 }, { timestamps : true})
 
 const Gallery = mongoose.model('Gallery', gallerySchema)
