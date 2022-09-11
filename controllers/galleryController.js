@@ -68,15 +68,14 @@ class GalleryController {
   }
 
   static findHomepage(req, res) {
-    // Gallery.find({isHomepage: true})
-    //   .then(pics => {
-    //     res.status(200).json(pics)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     res.status(400).json({ msg:err })
-    //   })
-    res.status(200).json([])
+    Gallery.find({isHomepage: true})
+      .then(pics => {
+        res.status(200).json(pics)
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(400).json({ msg:err })
+      })
   }
 
   static findCategory(req, res) {
