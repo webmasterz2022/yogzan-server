@@ -4,7 +4,10 @@ const gallerySchema = mongoose.Schema({
     name : String,
     url : String,
     category : String,
-    city: String
+    city: String,
+    horizontal: Boolean,
+    vertical: Boolean,
+    description: String
 }, { timestamps : true})
 
 const Gallery = mongoose.model('Gallery', gallerySchema)

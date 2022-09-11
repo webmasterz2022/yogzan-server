@@ -8,9 +8,9 @@ const maxSize = 2*1024*1024; //2 MB
 
 const storage = getStorage();
 const upload = multer({ 
-    storage,
-    limits: { fileSize: maxSize }
-});
+  storage,
+  limits: { fileSize: maxSize }
+})
 router.post('/upload', authentication, upload.single('images'), GalleryController.upload)
 
 router.get('/', GalleryController.findAll)

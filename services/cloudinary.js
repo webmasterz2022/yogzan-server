@@ -14,7 +14,8 @@ cloudinary.getStorage = () => {
     cloudinary,
     params: {
       folder: `/Gallery/${process.env.NODE_ENV}`,
-      allowedFormats: ["jpeg", "jpg", "png"],
+      image_metadata: true,
+      allowedFormats: ["jpeg", "jpg", "png"]
     },
   });
 };
