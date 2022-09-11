@@ -17,6 +17,6 @@ router.post('/upload-homepage', authentication, upload('Homepage', 'images'), Ga
 
 router.get('/', GalleryController.findAll)
 router.get('/homepage', GalleryController.findHomepage)
-router.get('/:category', GalleryController.findCategory)
+router.get('/category/:category', GalleryController.findCategory)
 
 module.exports = router
