@@ -46,10 +46,10 @@ class GalleryController {
     const page = Math.max(0, requestedPage)
     const perPage = 10
     let totalData = 0
-    Gallery.count()
+    Gallery.count({isHomepage: false})
       .then(num => {
         totalData = num
-        return Gallery.find()
+        return Gallery.find({isHomepage: false})
           .sort({createdAt: 'asc'})
           .limit(perPage)
           .skip(perPage * (page-1))
