@@ -1,4 +1,4 @@
-const { count } = require('../models/gallery');
+const { count, $where } = require('../models/gallery');
 const Gallery = require('../models/gallery')
 
 class GalleryController {
@@ -18,7 +18,8 @@ class GalleryController {
       res.status(201).json(pic)
     })
     .catch(err => {
-      res.status(500).json(err);
+        console.error(err)
+        res.status(500).json(err);
     })
   }
 
@@ -35,7 +36,8 @@ class GalleryController {
       res.status(201).json(pic)
     })
     .catch(err => {
-      res.status(500).json(err);
+        console.error(err)
+        res.status(500).json(err);
     })
   }
 
@@ -62,7 +64,7 @@ class GalleryController {
         res.status(200).json({images: pics, meta})
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
         res.status(400).json({ msg:err })
       })
   }
@@ -73,7 +75,7 @@ class GalleryController {
         res.status(200).json(pics)
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
         res.status(400).json({ msg:err })
       })
   }
@@ -102,7 +104,21 @@ class GalleryController {
         res.status(200).json({images: pics, meta})
       })
       .catch(err => {
+        console.error(err)
         res.status(400).json({ msg:err })
+      })
+  }
+
+  static findCities(req, res) {
+    Gallery
+      .find()
+      .distinct('city')
+      .then(cities => {
+        res.status(200).json(cities.filter(e => e !== ''))
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({ msg:err })
       })
   }
 }

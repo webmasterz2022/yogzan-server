@@ -18,5 +18,6 @@ router.post('/upload-homepage', authentication, upload('Homepage', 'images'), Ga
 router.get('/homepage', GalleryController.findHomepage)
 router.get('/', GalleryController.findAll)
 router.get('/category/:category', GalleryController.findCategory)
+router.get('/list-city', GalleryController.findCities)
 
 module.exports = router
