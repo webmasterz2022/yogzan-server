@@ -43,13 +43,18 @@ class GalleryController {
 
   static findAll(req, res) {
     const requestedPage = req.query.page ? parseInt(req.query.page) : 1
+    const requestedCity = req.query.city
     const page = Math.max(0, requestedPage)
     const perPage = 10
     let totalData = 0
-    Gallery.count({isHomepage: false})
+    const params = { isHomepage: false }
+    if(requestedCity){
+      params.city = requestedCity
+    }
+    Gallery.count(params)
       .then(num => {
         totalData = num
-        return Gallery.find({isHomepage: false})
+        return Gallery.find(params)
           .sort({createdAt: 'asc'})
           .limit(perPage)
           .skip(perPage * (page-1))
@@ -81,15 +86,20 @@ class GalleryController {
   }
 
   static findCategory(req, res) {
+    const requestedCity = req.query.city
     const category = req.params.category
     const requestedPage = req.query.page ? parseInt(req.query.page) : 1
     const page = Math.max(0, requestedPage)
     const perPage = 10
     let totalData = 0
-    Gallery.count({ category })
+    const params = { category }
+    if(requestedCity){
+      params.city = requestedCity
+    }
+    Gallery.count(params)
       .then(num => {
         totalData = num
-        return Gallery.find({ category })
+        return Gallery.find(params)
           .sort({createdAt: 'asc'})
           .limit(perPage)
           .skip(perPage * (page-1))
