@@ -1,36 +1,36 @@
-const Book = require('../models/book')
+const Order = require('../models/order')
 const transport = require('../services/nodemailer')
 
 class BookController {
-  static submit(req, res) {  
-    Book.create(req.body)
-    .then(book => {
+  static booking(req, res) {  
+    Order.create(req.body)
+    .then(order => {
       transport.sendMail({
         from: process.env.SENDER_EMAIL,
-        to: 'fadlulazmi17@gmail.com',
-        subject: `New Order - ${book.name} - ${book.city}`,
+        to: ['fadlulazmi17@gmail.com', 'hikmawanmie@gmail.com'],
+        subject: `New Order - ${order.name} - ${order.city}`,
         html: `
-          <h1>Hi Yogzan, you have new book !</h1>
+          <h1>Hi Yogzan, you have new order !</h1>
           <hr/>
-          <p><b>Nama Pemesan :</b> ${book.name}</p>
-          <p><b>Layanan :</b> ${book.layanan}</p>
-          <p><b>Kota :</b> ${book.city}</p>
-          <p><b>Tanggal Pemotretan :</b> ${book.date}</p>
-          <p><b>Kontak yang dapat dihubungi :</b> ${book.phone}</p>
-          <p><b>Mengetahui Yogzan dari :</b> ${book.knowFrom}</p>
+          <p><b>Nama Pemesan :</b> ${order.name}</p>
+          <p><b>Layanan :</b> ${order.layanan}</p>
+          <p><b>Kota :</b> ${order.city}</p>
+          <p><b>Tanggal Pemotretan :</b> ${order.date}</p>
+          <p><b>Kontak yang dapat dihubungi :</b> ${order.phone}</p>
+          <p><b>Mengetahui Yogzan dari :</b> ${order.knowFrom}</p>
         `
       }, (err, info) => {
         if(err) {
           console.error(err)
           res.status(500).json({msg: 'mailer error'})
         } else {
-          res.status(201).json(book)
+          res.status(201).json(order)
         }
       })
     })
     .catch(err => {
-        console.error(err)
-        res.status(500).json(err);
+      console.error(err)
+      res.status(500).json(err);
     })
   }
 
@@ -39,22 +39,22 @@ class BookController {
     const page = Math.max(0, requestedPage)
     const perPage = 10
     let totalData = 0
-    Book.count()
+    Order.count()
       .then(num => {
         totalData = num
-        return Book.find()
+        return Order.find()
           .sort({createdAt: 'asc'})
           .limit(perPage)
           .skip(perPage * (page-1))
       })
-      .then(books => {
+      .then(orders => {
         const meta = {
           page: requestedPage,
           totalData,
           totalDataOnPage: totalData < perPage ? totalData : perPage,
           totalPage: Math.ceil(totalData / perPage)
         }
-        res.status(200).json({data: books, meta})
+        res.status(200).json({data: orders, meta})
       })
       .catch(err => {
         console.error(err)

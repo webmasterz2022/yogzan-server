@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const bookSchema = mongoose.Schema({
+const orderSchema = mongoose.Schema({
     name : String,
     layanan : String,
     city : String,
@@ -9,6 +9,6 @@ const bookSchema = mongoose.Schema({
     knowFrom: String
 }, { timestamps : true})
 
-const Book = mongoose.model('Book', bookSchema)
+const Order = mongoose.model('Order', orderSchema)
 
-module.exports = Book
+module.exports = Order
