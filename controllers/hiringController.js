@@ -1,6 +1,10 @@
 const Hiring = require('../models/hiring')
 const transport = require('../services/nodemailer')
 
+const thousand = val => (
+  Math.round(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+);
+
 class HiringController {
   static submit(req, res) {     
     Hiring.create(req.body)
@@ -15,15 +19,15 @@ class HiringController {
           <p><b>Nama Lengkap :</b> ${candidate.fullname}</p>
           <p><b>Nama Panggilan :</b> ${candidate.nickname}</p>
           <p><b>Email :</b> ${candidate.email}</p>
-          <p><b>Nomor Whatsapp :</b> ${candidate.phone}</p>
+          <p><b>Nomor Whatsapp :</b> 0${candidate.phone}</p>
           <hr/>
           <p><b>Jenis Pemotretan yang pernah diambil :</b> ${candidate.photoshoot}</p>
           <p><b>Pengalaman Memotret :</b> ${candidate.experience}</p>
           <p><b>Seri Kamera yang dimiliki :</b> ${candidate.camera}</p>
           <p><b>Seri Lensa yang dimiliki :</b> ${candidate.lens}</p>
-          <p><b>Aksesoris lain yang dimiliki :</b> ${candidate.accessoris}</p>
+          <p><b>Aksesoris lain yang dimiliki :</b> ${candidate.accessories}</p>
           <p><b>Alokasi waktu untuk Yogzan :</b> ${candidate.workingHour}</p>
-          <p><b>Expected Fee :</b> Rp${candidate.fee}</p>
+          <p><b>Expected Fee :</b> Rp${thousand(candidate.fee)}</p>
           <p><b>CV :</b> ${candidate.cv}</p>
           <p><b>Portfolio :</b> ${candidate.portfolio}</p>
         `
