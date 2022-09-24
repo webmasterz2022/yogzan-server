@@ -13,10 +13,20 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-mongoose.connect(process.env.DB_PATH, {useNewUrlParser : true, useCreateIndex : true, useFindAndModify : false}, (err) => {
-  if(err) console.log('mongoose connection failed');
-  else console.log('mongoose connection success');
-});
+console.log('connecting to db with mongoose')
+// mongoose.connect(process.env.DB_PATH, {useNewUrlParser: true, useUnifiedTopology: true, serverApi: '1', dbName: process.env.NODE_ENV}, (err) => {
+//   if(err) console.log('mongoose connection failed', err);
+//   else console.log('mongoose connection success');
+// });
+mongoose.connect(process.env.DB_PATH, {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true, 
+  serverApi: '1', 
+  dbName: process.env.NODE_ENV,
+  serverSelectionTimeoutMS: 5000,
+})
+  .then(() => console.log('connected'))
+  .catch((err) => console.log('connection ===> ',err));
 
 app.use('/', route)
 
