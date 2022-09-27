@@ -27,7 +27,7 @@ class HiringController {
           <p><b>Seri Lensa yang dimiliki :</b> ${candidate.lens}</p>
           <p><b>Aksesoris lain yang dimiliki :</b> ${candidate.accessories}</p>
           <p><b>Alokasi waktu untuk Yogzan :</b> ${candidate.workingHour}</p>
-          <p><b>Expected Fee :</b> Rp${thousand(candidate.fee)}</p>
+          <p><b>Expected Fee :</b>${candidate.fee}</p>
           <p><b>CV :</b> ${candidate.cv}</p>
           <p><b>Portfolio :</b> ${candidate.portfolio}</p>
         `
