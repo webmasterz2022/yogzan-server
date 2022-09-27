@@ -7,10 +7,10 @@ class BookController {
     .then(book => {
       transport.sendMail({
         from: process.env.SENDER_EMAIL,
-        to: 'fadlulazmi17@gmail.com',
+        to: 'asktoyogzan@gmail.com',
         subject: `New Order - ${book.name} - ${book.city}`,
         html: `
-          <h1>Hi Yogzan, you have new book !</h1>
+          <h1>Hi Yogzan, you have new bookings !</h1>
           <hr/>
           <p><b>Nama Pemesan :</b> ${book.name}</p>
           <p><b>Layanan :</b> ${book.layanan}</p>
