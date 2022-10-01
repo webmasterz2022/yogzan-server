@@ -7,7 +7,7 @@ class BookController {
     .then(book => {
       transport.sendMail({
         from: process.env.SENDER_EMAIL,
-        to: 'fadlulazmi17@gmail.com',
+        to: 'helpdesk@yogzan.com',
         subject: `New Order - ${book.name} - ${book.city}`,
         html: `
           <h1>Hi Yogzan, you have new book !</h1>
