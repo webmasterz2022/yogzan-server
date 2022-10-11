@@ -1,10 +1,6 @@
 const Hiring = require('../models/hiring')
 const transport = require('../services/nodemailer')
 
-const thousand = val => (
-  Math.round(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-);
-
 class HiringController {
   static submit(req, res) {     
     Hiring.create(req.body)
