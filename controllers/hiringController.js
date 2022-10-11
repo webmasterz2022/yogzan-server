@@ -15,7 +15,8 @@ class HiringController {
           <p><b>Nama Lengkap :</b> ${candidate.fullname}</p>
           <p><b>Nama Panggilan :</b> ${candidate.nickname}</p>
           <p><b>Email :</b> ${candidate.email}</p>
-          <p><b>Nomor Whatsapp :</b> 0${candidate.phone}</p>
+          <p><b>Nomor Whatsapp :</b> ${candidate.phone}</p>
+          <p><b>Alamat Domisili saat ini :</b> ${candidate.address}</p>
           <hr/>
           <p><b>Jenis Pemotretan yang pernah diambil :</b> ${candidate.photoshoot}</p>
           <p><b>Pengalaman Memotret :</b> ${candidate.experience}</p>
