@@ -13,6 +13,7 @@ const upload = (type, fieldName) => multer({
 }).single(fieldName)
 
 const customMiddleware = (req, res, next) => {
+  console.log(req.body, 'custom middleware')
   if(req.body.images) {
     upload('Category', 'images')
   } else {
@@ -21,7 +22,7 @@ const customMiddleware = (req, res, next) => {
 }
 
 router.post('/update/:id', customMiddleware, CategoryController.update)
-router.post('/', authentication, customMiddleware, CategoryController.create)
+router.post('/', authentication, upload('Category', 'images'), CategoryController.create)
 
 router.get('/homepage', CategoryController.findHomepage)
 router.get('/gallery', CategoryController.findGallery)
