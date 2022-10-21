@@ -12,7 +12,16 @@ const upload = (type, fieldName) => multer({
   limits: { fileSize: maxSize }
 }).single(fieldName)
 
-router.post('/', authentication, upload('Category', 'images'), CategoryController.create)
+const customMiddleware = (req, res, next) => {
+  if(req.body.images) {
+    upload('Category', 'images')
+  } else {
+    next()
+  }
+}
+
+router.post('/', authentication, customMiddleware, CategoryController.create)
+// router.post('/', authentication, upload('Category', 'images'), CategoryController.create)
 
 router.get('/homepage', CategoryController.findHomepage)
 router.get('/gallery', CategoryController.findGallery)
