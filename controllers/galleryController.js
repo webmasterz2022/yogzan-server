@@ -134,7 +134,7 @@ class GalleryController {
 
   static delete(req, res) {
     Gallery
-      .findByIdAndRemove(req.params.id)
+      .findOneAndRemove({_id: req.params.id})
       .then(images => {
         res.status(200).json(images)
       })
