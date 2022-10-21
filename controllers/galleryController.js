@@ -131,6 +131,18 @@ class GalleryController {
         res.status(500).json({ msg:err })
       })
   }
+
+  static delete(req, res) {
+    Gallery
+      .findByIdAndDelete(req.params.id)
+      .then(images => {
+        res.status(200).json(images)
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({ msg:err })
+      })
+  }
 }
 
 module.exports = GalleryController
