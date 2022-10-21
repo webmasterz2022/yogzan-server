@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const { count, $where } = require('../models/gallery');
 const Gallery = require('../models/gallery')
 
@@ -134,7 +135,7 @@ class GalleryController {
 
   static delete(req, res) {
     Gallery
-      .findOneAndRemove({_id: req.params.id})
+      .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
       .then(images => {
         res.status(200).json(images)
       })
