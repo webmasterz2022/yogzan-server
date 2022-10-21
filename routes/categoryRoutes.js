@@ -20,8 +20,8 @@ const customMiddleware = (req, res, next) => {
   }
 }
 
-router.post('/', authentication, customMiddleware, CategoryController.create)
 router.post('/update/:id', customMiddleware, CategoryController.update)
+router.post('/', authentication, customMiddleware, CategoryController.create)
 
 router.get('/homepage', CategoryController.findHomepage)
 router.get('/gallery', CategoryController.findGallery)
