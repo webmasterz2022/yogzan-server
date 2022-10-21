@@ -21,13 +21,12 @@ const customMiddleware = (req, res, next) => {
 }
 
 router.post('/', authentication, customMiddleware, CategoryController.create)
-// router.post('/', authentication, upload('Category', 'images'), CategoryController.create)
+router.post('/update/:id', customMiddleware, CategoryController.update)
 
 router.get('/homepage', CategoryController.findHomepage)
 router.get('/gallery', CategoryController.findGallery)
 router.get('/', CategoryController.findAll)
 
 router.delete('/:id', CategoryController.delete)
-router.put('/:id', CategoryController.update)
 
 module.exports = router
