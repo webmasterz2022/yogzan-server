@@ -21,7 +21,7 @@ const customMiddleware = (req, res, next) => {
   }
 }
 
-router.post('/update/:id', customMiddleware, CategoryController.update)
+router.put('/update/:id', upload('Category', 'images'), CategoryController.update)
 router.post('/', authentication, upload('Category', 'images'), CategoryController.create)
 
 router.get('/homepage', CategoryController.findHomepage)
