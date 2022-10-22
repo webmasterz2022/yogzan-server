@@ -6,7 +6,7 @@ class TestimonyController {
     const {name, link, desc} = req.body
     Testimony.create({
       name, 
-      image: req.file.path, 
+      image: req.file?.path || '', 
       link,
       desc
     })
@@ -45,7 +45,7 @@ class TestimonyController {
   static update(req, res) {
     const data = {
       name: req.body.name,
-      image: req.body.image || req.file.path,
+      image: req.body.image || req.file?.path || '',
       link: req.body.link,
       desc: req.body.desc
     }
