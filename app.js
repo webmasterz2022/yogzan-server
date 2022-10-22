@@ -14,10 +14,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 console.log('connecting to db with mongoose')
-// mongoose.connect(process.env.DB_PATH, {useNewUrlParser: true, useUnifiedTopology: true, serverApi: '1', dbName: process.env.NODE_ENV}, (err) => {
-//   if(err) console.log('mongoose connection failed', err);
-//   else console.log('mongoose connection success');
-// });
 mongoose.connect(process.env.DB_PATH, {
   useNewUrlParser: true, 
   useUnifiedTopology: true, 

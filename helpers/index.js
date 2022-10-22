@@ -9,7 +9,7 @@ module.exports = {
         return bcrypt.compareSync(password, passwordDB)
     },
     generateJWT(userPayload){
-        return jwt.sign(userPayload, process.env.JWT_SECRET, {expiresIn: '1d'})
+        return jwt.sign(userPayload, process.env.JWT_SECRET, {})
     },
     verifyJWT(token){
         return jwt.verify(token, process.env.JWT_SECRET)
