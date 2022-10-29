@@ -49,7 +49,7 @@ class HiringController {
   static findAll(req, res) {
     const requestedPage = req.query.page ? parseInt(req.query.page) : 1
     const page = Math.max(0, requestedPage)
-    const perPage = 10
+    const perPage = req.query.limit || 10
     let totalData = 0
     Hiring.count()
       .then(num => {
@@ -72,6 +72,10 @@ class HiringController {
         console.error(err)
         res.status(400).json({ msg:err })
       })
+  }
+
+  static save(req, res) {
+    console.log(req.body)
   }
 }
 
