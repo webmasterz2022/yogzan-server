@@ -1,9 +1,8 @@
-const Book = require('../models/book')
-const transport = require('../services/nodemailer')
+const FixBook = require('../models/fixbook')
 
-class BookController {
+class FixBookController {
   static submit(req, res) {  
-    Book.create(req.body)
+    FixBook.create(req.body)
     .then(book => {
       res.status(201).json(book)
     })
@@ -18,10 +17,10 @@ class BookController {
     const page = Math.max(0, requestedPage)
     const perPage = req.query.limit || 10
     let totalData = 0
-    Book.count()
+    FixBook.count()
       .then(num => {
         totalData = num
-        return Book.find()
+        return FixBook.find()
           .sort({createdAt: 'desc'})
           .limit(perPage)
           .skip(perPage * (page-1))
@@ -42,4 +41,4 @@ class BookController {
   }
 }
 
-module.exports = BookController
+module.exports = FixBookController
