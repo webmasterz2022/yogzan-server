@@ -5,28 +5,7 @@ class BookController {
   static submit(req, res) {  
     Book.create(req.body)
     .then(book => {
-      transport.sendMail({
-        from: process.env.SENDER_EMAIL,
-        to: 'helpdesk@yogzan.com',
-        subject: `New Order - ${book.name} - ${book.city}`,
-        html: `
-          <h1>Hi Yogzan, you have new book !</h1>
-          <hr/>
-          <p><b>Nama Pemesan :</b> ${book.name}</p>
-          <p><b>Layanan :</b> ${book.layanan}</p>
-          <p><b>Kota :</b> ${book.city}</p>
-          <p><b>Tanggal Pemotretan :</b> ${book.date}</p>
-          <p><b>Kontak yang dapat dihubungi :</b> ${book.phone}</p>
-          <p><b>Mengetahui Yogzan dari :</b> ${book.knowFrom}</p>
-        `
-      }, (err, info) => {
-        if(err) {
-          console.error(err)
-          res.status(500).json({msg: 'mailer error'})
-        } else {
-          res.status(201).json(book)
-        }
-      })
+      res.status(201).json(book)
     })
     .catch(err => {
         console.error(err)
