@@ -34,6 +34,7 @@ class TestimonyController {
     Testimony
       .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
       .then(testimony => {
+        cloudinary.deleteCloudPicture(testimony.image)
         res.status(200).json(testimony)
       })
       .catch(err => {
@@ -52,6 +53,9 @@ class TestimonyController {
     Testimony
       .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
       .then(testimony => {
+        if(req.file?.path && req.body.image){
+          cloudinary.deleteCloudPicture(req.body.image)
+        }
         res.status(200).json(testimony)
       })
       .catch(err => {

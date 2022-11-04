@@ -1,6 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const { count, $where } = require('../models/gallery');
 const Gallery = require('../models/gallery')
+const cloudinary = require('../services/cloudinary')
 
 class GalleryController {
   static upload(req, res) {     
@@ -135,9 +136,31 @@ class GalleryController {
 
   static delete(req, res) {
     Gallery
-      .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
-      .then(images => {
+    .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
+    .then(images => {
+        cloudinary.deleteCloudPicture(images.url)
         res.status(200).json(images)
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({ msg:err })
+      })
+  }
+
+  static update(req, res) {
+    const data = {
+      name: req.body.name,
+      image: req.body.image || req.file.path,
+      displayOnGallery: req.body.displayOnGallery,
+      displayOnHomepage: req.body.displayOnHomepage
+    }
+    Gallery
+      .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
+      .then(category => {
+        if(req.file?.path && req.body.image){
+          cloudinary.deleteCloudPicture(req.body.image)
+        }
+        res.status(200).json(category)
       })
       .catch(err => {
         console.error(err)

@@ -21,5 +21,6 @@ router.get('/category/:category', GalleryController.findCategory)
 router.get('/list-city', GalleryController.findCities)
 
 router.delete('/:id', GalleryController.delete)
+router.put('/:id', GalleryController.update)
 
 module.exports = router
