@@ -148,11 +148,16 @@ class GalleryController {
   }
 
   static update(req, res) {
+    const {name, category, city, horizontal, vertical, description} = req.body
     const data = {
-      name: req.body.name,
-      image: req.body.image || req.file.path,
-      displayOnGallery: req.body.displayOnGallery,
-      displayOnHomepage: req.body.displayOnHomepage
+      url: req.body.image || req.file.path,
+      name, 
+      category,
+      city,
+      horizontal,
+      vertical,
+      description,
+      isHomepage: false
     }
     Gallery
       .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
