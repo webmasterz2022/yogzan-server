@@ -12,7 +12,9 @@ const fixbookSchema = mongoose.Schema({
   date: String,
   time: String,
   phone: String,
-  location: String
+  location: String,
+  photographer: String,
+  package: String
 }, { timestamps : true})
 
 const Book = mongoose.model('FixBook', fixbookSchema)
