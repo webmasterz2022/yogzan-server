@@ -11,7 +11,7 @@ class HiringController {
     .then(candidate => {
       transport.sendMail({
         from: process.env.SENDER_EMAIL,
-        to: ['fadlulazmi17@gmail.com', 'hikmawanmie@gmail.com'],
+        to: 'helpdesk@yogzan.com',
         subject: `Candidate - ${candidate.fullname}`,
         html: `
           <h1>Hi Yogzan, you have new candidate !</h1>
@@ -49,13 +49,13 @@ class HiringController {
   static findAll(req, res) {
     const requestedPage = req.query.page ? parseInt(req.query.page) : 1
     const page = Math.max(0, requestedPage)
-    const perPage = 10
+    const perPage = req.query.limit || 10
     let totalData = 0
     Hiring.count()
       .then(num => {
         totalData = num
         return Hiring.find()
-          .sort({createdAt: 'asc'})
+          .sort({createdAt: 'desc'})
           .limit(perPage)
           .skip(perPage * (page-1))
       })
@@ -72,6 +72,10 @@ class HiringController {
         console.error(err)
         res.status(400).json({ msg:err })
       })
+  }
+
+  static save(req, res) {
+    console.log(req.body)
   }
 }
 

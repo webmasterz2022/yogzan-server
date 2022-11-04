@@ -1,5 +1,7 @@
+const { default: mongoose } = require('mongoose');
 const { count, $where } = require('../models/gallery');
 const Gallery = require('../models/gallery')
+const cloudinary = require('../services/cloudinary')
 
 class GalleryController {
   static upload(req, res) {     
@@ -125,6 +127,45 @@ class GalleryController {
       .distinct('city')
       .then(cities => {
         res.status(200).json(cities.filter(e => e !== ''))
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({ msg:err })
+      })
+  }
+
+  static delete(req, res) {
+    Gallery
+    .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
+    .then(images => {
+        cloudinary.deleteCloudPicture(images.url)
+        res.status(200).json(images)
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({ msg:err })
+      })
+  }
+
+  static update(req, res) {
+    const {name, category, city, horizontal, vertical, description} = req.body
+    const data = {
+      url: req.body.image || req.file?.path,
+      name, 
+      category,
+      city,
+      horizontal,
+      vertical,
+      description,
+      isHomepage: false
+    }
+    Gallery
+      .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
+      .then(category => {
+        if(req.file?.path && req.body.image){
+          cloudinary.deleteCloudPicture(req.body.image)
+        }
+        res.status(200).json(category)
       })
       .catch(err => {
         console.error(err)
