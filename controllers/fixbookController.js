@@ -43,9 +43,6 @@ class FixBookController {
 
   static update(req, res) {
     const data = {...req.body}
-    delete data._id
-    delete data.createdAt
-    delete data.__v
     FixBook.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
     .then(book => {
       res.status(200).json(book)
