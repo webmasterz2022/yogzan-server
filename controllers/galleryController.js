@@ -150,7 +150,7 @@ class GalleryController {
   static update(req, res) {
     const {name, category, city, horizontal, vertical, description} = req.body
     const data = {
-      url: req.body.image || req.file.path,
+      url: req.body.image || req.file?.path,
       name, 
       category,
       city,
