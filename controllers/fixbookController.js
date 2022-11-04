@@ -41,7 +41,7 @@ class FixBookController {
       })
   }
 
-  static update(req, res) {
+  static updateData(req, res) {
     FixBook.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, req.body)
     .then(book => {
       res.status(200).json(book)
