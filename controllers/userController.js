@@ -30,7 +30,7 @@ class UserController {
     })
     .then(user => {
       if(!user) {
-        res.status(400).json({ err: "Username/Password wrong" });
+        res.status(400).json({ err: "Email atau Password tidak ditemukan" });
       } else {
         if(Helper.comparePassword(password, user.password)) {
           let access_token = Helper.generateJWT({
@@ -38,10 +38,9 @@ class UserController {
             username: user.username,
             email: user.email,
           });
-
           res.status(200).json({access_token, userId: user._id, username : user.username})
         } else {
-          res.status(400).json({ err: "Username/Password wrong" });
+          res.status(400).json({ err: "Email atau Password tidak ditemukan" });
         }
       }
     })
