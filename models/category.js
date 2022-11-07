@@ -5,7 +5,8 @@ const categorySchema = mongoose.Schema({
     image : String,
     displayOnHomepage: Boolean,
     displayOnGallery: Boolean,
-    image: String
+    image: String,
+    redirectLink: String,
 }, { timestamps : true})
 
 const Category = mongoose.model('Category', categorySchema)

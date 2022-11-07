@@ -70,7 +70,8 @@ class CategoryController {
       name: req.body.name,
       image: req.body.image || req.file.path,
       displayOnGallery: req.body.displayOnGallery,
-      displayOnHomepage: req.body.displayOnHomepage
+      displayOnHomepage: req.body.displayOnHomepage,
+      redirectLink: req.body.redirectLink
     }
     Category
       .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
