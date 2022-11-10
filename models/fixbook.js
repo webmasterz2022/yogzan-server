@@ -15,7 +15,7 @@ const fixbookSchema = mongoose.Schema({
   location: String,
   photographer: String,
   package: String,
-  linkPhoto: String,
+  linkphoto: String,
   stored: String
 }, { timestamps : true})
 
