@@ -14,7 +14,8 @@ const fixbookSchema = mongoose.Schema({
   phone: String,
   location: String,
   photographer: String,
-  package: String
+  package: String,
+  linkPhoto: String
 }, { timestamps : true})
 
 const Book = mongoose.model('FixBook', fixbookSchema)

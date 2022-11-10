@@ -51,6 +51,17 @@ class FixBookController {
       res.status(500).json(err);
     })
   }
+
+  static checkClientPath(req, res) {
+    FixBook.findOne({linkphoto: req.body.path})
+    .then(book => {
+      res.status(200).json(book ? false : true)
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json(err);
+    })
+  }
 }
 
 module.exports = FixBookController
