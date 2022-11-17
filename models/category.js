@@ -7,6 +7,10 @@ const categorySchema = mongoose.Schema({
     displayOnGallery: Boolean,
     image: String,
     redirectLink: String,
+    cities: [{
+      name: String,
+      file: String
+    }]
 }, { timestamps : true})
 
 const Category = mongoose.model('Category', categorySchema)

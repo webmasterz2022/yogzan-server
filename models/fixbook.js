@@ -19,6 +19,6 @@ const fixbookSchema = mongoose.Schema({
   stored: String
 }, { timestamps : true})
 
-const Book = mongoose.model('FixBook', fixbookSchema)
+const FixBook = mongoose.model('FixBook', fixbookSchema)
 
-module.exports = Book
+module.exports = FixBook
