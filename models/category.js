@@ -8,8 +8,8 @@ const categorySchema = mongoose.Schema({
     image: String,
     redirectLink: String,
     cities: [{
-      name: String,
-      file: String
+      type: Object,
+      default: []
     }]
 }, { timestamps : true})
 
