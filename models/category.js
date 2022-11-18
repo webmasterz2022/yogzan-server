@@ -5,7 +5,12 @@ const categorySchema = mongoose.Schema({
     image : String,
     displayOnHomepage: Boolean,
     displayOnGallery: Boolean,
-    image: String
+    image: String,
+    redirectLink: String,
+    cities: [{
+      type: Object,
+      default: []
+    }]
 }, { timestamps : true})
 
 const Category = mongoose.model('Category', categorySchema)
