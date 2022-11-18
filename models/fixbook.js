@@ -14,9 +14,11 @@ const fixbookSchema = mongoose.Schema({
   phone: String,
   location: String,
   photographer: String,
-  package: String
+  package: String,
+  linkphoto: String,
+  stored: String
 }, { timestamps : true})
 
-const Book = mongoose.model('FixBook', fixbookSchema)
+const FixBook = mongoose.model('FixBook', fixbookSchema)
 
-module.exports = Book
+module.exports = FixBook
