@@ -7,7 +7,7 @@ class HiringController {
     .then(candidate => {
       transport.sendMail({
         from: process.env.SENDER_EMAIL,
-        to: 'asktoyogzan@gmail.com',
+        to: 'admin@yogzan.com',
         subject: `Candidate - ${candidate.fullname}`,
         html: `
           <h1>Hi Yogzan, you have new candidate !</h1>
