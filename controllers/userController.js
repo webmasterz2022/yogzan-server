@@ -4,7 +4,7 @@ const Helper = require('../helpers')
 class UserController {
   static register(req, res) {        
     const {username, email, password, credentialCode} = req.body
-    if(credentialCode === process.env.CREDENTIAL_CODE) {
+    if(credentialCode.toString() === process.env.CREDENTIAL_CODE.toString()) {
       User.create({
         username, email, password
       })
@@ -12,6 +12,7 @@ class UserController {
         res.status(201).json(user)
       })
       .catch(err => {
+        console.log(err)
         if (err.errors.email) {
             res.status(409).json({ err: err.errors.email.reason });
         } else if(err.errors.password) {
@@ -21,7 +22,7 @@ class UserController {
         }
       })
     } else {
-      res.status(409).json({ err: 'credential code tidak ditemukan' });
+      res.status(404).json({ err: 'credential code tidak ditemukan' });
     }
   }
 

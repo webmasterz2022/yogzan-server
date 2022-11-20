@@ -27,7 +27,7 @@ mongoose.connect(process.env.DB_PATH, {
 app.use('/', route)
 
 app.use(function(err, req, res, next){
-  console.log(err);
+  console.log(err, 'app.js');
   if(err.code && err.msg){
       res.status(err.code).json(err.msg)
   } else {
