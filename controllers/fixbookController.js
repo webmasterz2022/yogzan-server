@@ -22,6 +22,7 @@ class FixBookController {
       .then(num => {
         totalData = num
         return FixBook.find()
+          .nin('date', ['', undefined, null])
           .sort({date: -1, time: 1})
           .limit(perPage)
           .skip(perPage * (page-1))

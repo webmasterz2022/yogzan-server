@@ -55,6 +55,7 @@ class HiringController {
       .then(num => {
         totalData = num
         return Hiring.find()
+          .nin('fullname', ['', undefined, null])
           .sort({createdAt: 'desc'})
           .limit(perPage)
           .skip(perPage * (page-1))

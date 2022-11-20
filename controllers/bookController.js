@@ -22,6 +22,7 @@ class BookController {
       .then(num => {
         totalData = num
         return Book.find()
+          .nin('date', ['', undefined, null])
           .sort({createdAt: 'desc'})
           .limit(perPage)
           .skip(perPage * (page-1))
