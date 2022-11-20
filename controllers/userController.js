@@ -3,23 +3,26 @@ const Helper = require('../helpers')
 
 class UserController {
   static register(req, res) {        
-    const {username, email, password} = req.body
-
-    User.create({
-      username, email, password
-    })
-    .then(user=> {
-      res.status(201).json(user)
-    })
-    .catch(err => {
-      if (err.errors.email) {
-          res.status(409).json({ err: err.errors.email.reason });
-      } else if(err.errors.password) {
-          res.status(409).json({ err: err.errors.password.message });
-      } else {
-          res.status(500).json(err);
-      }
-    })
+    const {username, email, password, credentialCode} = req.body
+    if(credentialCode === process.env.CREDENTIAL_CODE) {
+      User.create({
+        username, email, password
+      })
+      .then(user=> {
+        res.status(201).json(user)
+      })
+      .catch(err => {
+        if (err.errors.email) {
+            res.status(409).json({ err: err.errors.email.reason });
+        } else if(err.errors.password) {
+            res.status(409).json({ err: err.errors.password.message });
+        } else {
+            res.status(500).json(err);
+        }
+      })
+    } else {
+      res.status(409).json({ err: 'credential code tidak ditemukan' });
+    }
   }
 
   static login(req, res) {
