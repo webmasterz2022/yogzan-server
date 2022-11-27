@@ -17,6 +17,13 @@ const fixbookSchema = mongoose.Schema({
   package: String,
   linkphoto: String,
   stored: String,
+  follow: Boolean,
+  fg: String,
+  post: String,
+  story: String,
+  feed: String,
+  reel: String,
+  testimony: String,
   notes: String
 }, { timestamps : true})
 
