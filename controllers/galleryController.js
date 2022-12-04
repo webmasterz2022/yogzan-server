@@ -122,8 +122,13 @@ class GalleryController {
   }
 
   static findCities(req, res) {
+    const { category } = req.query
+    const param = {}
+    if(category) {
+      param.category = category
+    }
     Gallery
-      .find()
+      .find(param)
       .distinct('city')
       .then(cities => {
         res.status(200).json(cities.filter(e => e !== ''))
