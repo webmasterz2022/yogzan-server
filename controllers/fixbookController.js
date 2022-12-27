@@ -74,6 +74,17 @@ class FixBookController {
       res.status(500).json(err);
     })
   }
+
+  static delete(req, res) {
+    FixBook.findOneAndDelete({_id: mongoose.Types.ObjectId(req.params.id)})
+    .then(book => {
+      res.status(200).json(book)
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json(err);
+    })
+  }
 }
 
 module.exports = FixBookController
