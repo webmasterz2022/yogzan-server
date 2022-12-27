@@ -6,6 +6,7 @@ router.post('/submit', FixBookController.submit)
 router.post('/check-path', FixBookController.checkClientPath)
 router.post('/photo-result', FixBookController.photoLink)
 router.put('/:id', FixBookController.updateData)
+router.delete('/:id', FixBookController.delete)
 
 router.get('/', FixBookController.findAll)
 
