@@ -26,7 +26,11 @@ const fixbookSchema = mongoose.Schema({
   feed: String,
   reel: String,
   testimony: String,
-  notes: String
+  notes: String,
+  cashin: String,
+  cashinNote: String,
+  cashout: String,
+  cashoutNote: String
 }, { timestamps : true})
 
 const FixBook = mongoose.model('FixBook', fixbookSchema)
