@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Book = require('../models/book')
 const transport = require('../services/nodemailer')
 
@@ -41,6 +42,18 @@ class BookController {
         res.status(400).json({ msg:err })
       })
   }
+
+  static updateData(req, res) {
+    Book.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, req.body)
+    .then(book => {
+      res.status(200).json(book)
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json(err);
+    })
+  }
+
 }
 
 module.exports = BookController

@@ -14,7 +14,9 @@ const hiringSchema = mongoose.Schema({
     workingHour: String,
     fee: String,
     cv: String,
-    portfolio: String
+    portfolio: String,
+    status: String,
+    note: String
 }, { timestamps : true})
 
 const Hiring = mongoose.model('Hiring', hiringSchema)
