@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Hiring = require('../models/hiring')
 const transport = require('../services/nodemailer')
 
@@ -74,6 +75,17 @@ class HiringController {
 
   static save(req, res) {
     console.log(req.body)
+  }
+
+  static updateData(req, res) {
+    Hiring.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, req.body)
+    .then(hire => {
+      res.status(200).json(hire)
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json(err);
+    })
   }
 }
 
