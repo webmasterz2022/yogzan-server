@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const fixbookSchema = mongoose.Schema({
   fullname: String,
   nickname: String,
+  address: String,
   layanan: String,
   campus: String,
   faculty: String,
@@ -30,8 +31,10 @@ const fixbookSchema = mongoose.Schema({
   cashin: String,
   cashinNote: String,
   cashout: String,
-  cashoutNote: String
-}, { timestamps : true})
+  cashoutNote: String,
+  bankName: String,
+  accountHolderName: String,
+}, { timestamps: true })
 
 const FixBook = mongoose.model('FixBook', fixbookSchema)
 
