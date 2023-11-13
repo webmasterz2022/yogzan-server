@@ -6,7 +6,10 @@ const bookSchema = mongoose.Schema({
     city : String,
     date: String,
     phone: String,
-    knowFrom: String
+    knowFrom: String,
+    followUp1: Boolean,
+    followUp2: Boolean,
+    note: String
 }, { timestamps : true})
 
 const Book = mongoose.model('Book', bookSchema)

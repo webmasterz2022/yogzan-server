@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 
 const hiringSchema = mongoose.Schema({
-    fullname : String,
-    nickname : String,
-    email : String,
+    fullname: String,
+    nickname: String,
+    birthDate: String,
+    email: String,
     phone: String,
     address: String,
     photoshoot: String,
@@ -14,8 +15,13 @@ const hiringSchema = mongoose.Schema({
     workingHour: String,
     fee: String,
     cv: String,
-    portfolio: String
-}, { timestamps : true})
+    portfolio: String,
+    status: String,
+    note: String,
+    knowFrom: String,
+    city: String,
+    jobRole: String
+}, { timestamps: true })
 
 const Hiring = mongoose.model('Hiring', hiringSchema)
 
