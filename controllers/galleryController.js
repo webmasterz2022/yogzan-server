@@ -8,7 +8,7 @@ class GalleryController {
     const {name, category, city, horizontal, vertical, description} = req.body
     Gallery.create({
       name, 
-      url: req.file.path, 
+      url: req.file.location, 
       category,
       city,
       horizontal,
@@ -29,7 +29,7 @@ class GalleryController {
     const {name, horizontal, vertical} = req.body
     Gallery.create({
       name, 
-      url: req.file.path,
+      url: req.file.location,
       horizontal,
       vertical,
       isHomepage: true
@@ -143,7 +143,7 @@ class GalleryController {
     Gallery
     .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
     .then(images => {
-        cloudinary.deleteCloudPicture(images.url)
+        // cloudinary.deleteCloudPicture(images.url)
         res.status(200).json(images)
       })
       .catch(err => {
@@ -155,7 +155,7 @@ class GalleryController {
   static update(req, res) {
     const {name, category, city, horizontal, vertical, description} = req.body
     const data = {
-      url: req.body.image || req.file?.path,
+      url: req.body.image || req.file?.location,
       name, 
       category,
       city,
@@ -167,8 +167,8 @@ class GalleryController {
     Gallery
       .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
       .then(category => {
-        if(req.file?.path && req.body.image){
-          cloudinary.deleteCloudPicture(req.body.image)
+        if(req.file?.location && req.body.image){
+          // cloudinary.deleteCloudPicture(req.body.image)
         }
         res.status(200).json(category)
       })
