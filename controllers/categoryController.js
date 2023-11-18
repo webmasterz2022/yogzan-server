@@ -6,7 +6,7 @@ class CategoryController {
     const {name, displayOnGallery, displayOnHomepage} = req.body
     Category.create({
       name, 
-      image: req.file.path, 
+      image: req.file.location, 
       displayOnGallery,
       displayOnHomepage
     })
@@ -56,7 +56,7 @@ class CategoryController {
     Category
       .findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)})
       .then(category => {
-        cloudinary.deleteCloudPicture(category.image)
+        // cloudinary.deleteCloudPicture(category.image)
         res.status(200).json(category)
       })
       .catch(err => {
@@ -68,7 +68,7 @@ class CategoryController {
   static update(req, res) {
     const data = {
       name: req.body.name,
-      image: req.body.image || req.file.path,
+      image: req.body.image || req.file.location,
       displayOnGallery: req.body.displayOnGallery,
       displayOnHomepage: req.body.displayOnHomepage,
       redirectLink: req.body.redirectLink,
@@ -77,8 +77,8 @@ class CategoryController {
     Category
       .findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, data)
       .then(category => {
-        if(req.file?.path && req.body.image){
-          cloudinary.deleteCloudPicture(req.body.image)
+        if(req.file?.location && req.body.image){
+          // cloudinary.deleteCloudPicture(req.body.image)
         }
         res.status(200).json(category)
       })
