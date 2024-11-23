@@ -45,7 +45,7 @@ class FixBookController {
   static findAll(req, res) {
   const requestedPage = req.query.page ? parseInt(req.query.page) : 1;
   const page = Math.max(0, requestedPage);
-  const perPage = req.query.limit || 10;
+  const perPage = Number(req.query.limit) || 10;
   let totalData = 0;
 
   FixBook.count()
