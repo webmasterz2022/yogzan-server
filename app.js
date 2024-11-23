@@ -19,7 +19,7 @@ mongoose.connect(process.env.DB_PATH, {
   useUnifiedTopology: true, 
   serverApi: '1', 
   dbName: process.env.NODE_ENV,
-  serverSelectionTimeoutMS: 5000,
+  serverSelectionTimeoutMS: 20000,
 })
   .then(() => console.log('connected'))
   .catch((err) => console.log('connection ===> ',err));

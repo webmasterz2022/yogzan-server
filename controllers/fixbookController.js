@@ -13,34 +13,80 @@ class FixBookController {
       })
   }
 
+  // static findAll(req, res) {
+  //   const requestedPage = req.query.page ? parseInt(req.query.page) : 1
+  //   const page = Math.max(0, requestedPage)
+  //   const perPage = req.query.limit || 10
+  //   let totalData = 0
+  //   FixBook.count()
+  //     .then(num => {
+  //       totalData = num
+  //       return FixBook.find()
+  //         .nin('date', [undefined, null])
+  //         .sort({ date: -1, time: 1 })
+  //         .limit(perPage)
+  //         .skip(perPage * (page - 1))
+  //     })
+  //     .then(books => {
+  //       const meta = {
+  //         page: requestedPage,
+  //         totalData,
+  //         totalDataOnPage: totalData < perPage ? totalData : perPage,
+  //         totalPage: Math.ceil(totalData / perPage)
+  //       }
+  //       res.status(200).json({ data: books, meta })
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //       res.status(400).json({ msg: err })
+  //     })
+  // }
+
   static findAll(req, res) {
-    const requestedPage = req.query.page ? parseInt(req.query.page) : 1
-    const page = Math.max(0, requestedPage)
-    const perPage = req.query.limit || 10
-    let totalData = 0
-    FixBook.count()
-      .then(num => {
-        totalData = num
-        return FixBook.find()
-          .nin('date', [undefined, null])
-          .sort({ date: -1, time: 1 })
-          .limit(perPage)
-          .skip(perPage * (page - 1))
-      })
-      .then(books => {
-        const meta = {
-          page: requestedPage,
-          totalData,
-          totalDataOnPage: totalData < perPage ? totalData : perPage,
-          totalPage: Math.ceil(totalData / perPage)
-        }
-        res.status(200).json({ data: books, meta })
-      })
-      .catch(err => {
-        console.error(err)
-        res.status(400).json({ msg: err })
-      })
-  }
+  const requestedPage = req.query.page ? parseInt(req.query.page) : 1;
+  const page = Math.max(0, requestedPage);
+  const perPage = req.query.limit || 10;
+  let totalData = 0;
+
+  FixBook.count()
+    .then((num) => {
+      totalData = num;
+
+      return FixBook.aggregate([
+        // Tambahkan field untuk mengatur nilai sort khusus
+        {
+          $addFields: {
+            dateSort: {
+              $cond: {
+                if: { $ifNull: ["$date", false] }, // Jika `date` null atau undefined
+                then: 1, // Beri nilai prioritas rendah
+                else: 0, // Beri nilai prioritas tinggi
+              },
+            },
+          },
+        },
+        // Sort berdasarkan `dateSort`, lalu `date`, dan `time`
+        { $sort: { dateSort: 1, date: -1, time: 1 } },
+        // Pagination menggunakan `$skip` dan `$limit`
+        { $skip: perPage * (page - 1) },
+        { $limit: perPage },
+      ]);
+    })
+    .then((books) => {
+      const meta = {
+        page: requestedPage,
+        totalData,
+        totalDataOnPage: books.length,
+        totalPage: Math.ceil(totalData / perPage),
+      };
+      res.status(200).json({ data: books, meta });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ msg: err.message });
+    });
+}
+
 
   static updateData(req, res) {
     FixBook.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) }, req.body)
